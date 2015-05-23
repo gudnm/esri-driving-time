@@ -1,6 +1,4 @@
-var https = require("https");
 var Geoservices = require("geoservices");
-var edump = require("esri-dump");
 var request = require("request");
 
 var geoCodeFromAndTo = function(from, to, callback) {
@@ -26,7 +24,6 @@ var geoCodeFromAndTo = function(from, to, callback) {
 			})
 		}
 	});
-
 };
 
 var getDrivingTime = function(eId, eSecret, from, to, callback) {
@@ -47,17 +44,27 @@ var getDrivingTime = function(eId, eSecret, from, to, callback) {
 				console.log(error);
 			} else if (res.statusCode == 200) {
 				token = JSON.parse(body).access_token;
-				console.log(token);
 
-				
-				var routeParams = "solve?token=" + token + 
-					"&stops=" +  + "&f=json";
-				//var geoJson = edump(restUrl + routePath + routeParams);
+				geoCodeFromAndTo(from, to, function(origin, dest) {
+
+					var routeParams = "solve?token=" + token + 
+						"&stops=" + origin.x + "," + origin.y + 
+						";" + dest.x + "," + dest.y + "&f=json";
+					var url = restUrl + routePath + routeParams;
+
+					request.get(url, function(error, res, body) {
+						if (error) {
+							console.log(error) 
+						} else if (res.statusCode == 200) {
+							var json = JSON.parse(body);
+							var attrs = json.routes.features[0].attributes;
+							callback(attrs.Total_TravelTime);							
+						}
+					});
+				});
 			}
 		}
 	);
-
-
 };
 
 module.exports.getDrivingTime = getDrivingTime;
