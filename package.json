@@ -1,7 +1,7 @@
 {
   "name": "esri-driving-time",
-  "version": "0.0.0",
-  "description": "npm lib with a single function that takes esri credentials and two addresses as input and outputs driving time",
+  "version": "0.0.2",
+  "description": "This lib provides getDrivingTime function that accepts ESRI credentials and two addresses as input and outputs driving time by car.",
   "main": "test.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
