@@ -11,4 +11,4 @@ To install:
 
     npm i esri-driving-time
 
-To get ESRI credentials, you need to sign up for a developer account and register your application at https://developers.arcgis.com/authentication/accessing-arcgis-online-services/
+To get ESRI credentials, you need to sign up for a developer account and register your application at [ArcGIS](https://developers.arcgis.com/authentication/accessing-arcgis-online-services/)
